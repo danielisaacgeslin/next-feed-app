@@ -1,3 +1,33 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": "next/core-web-vitals",
+  "rules": {
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "CallExpression[callee.property.name='push']",
+        "message": "Array 'push' method is restricted."
+      },
+      {
+        "selector": "CallExpression[callee.property.name='pop']",
+        "message": "Array 'pop' method is restricted."
+      },
+      {
+        "selector": "CallExpression[callee.property.name='shift']",
+        "message": "Array 'shift' method is restricted."
+      },
+      {
+        "selector": "CallExpression[callee.property.name='unshift']",
+        "message": "Array 'unshift' method is restricted."
+      },
+      {
+        "selector": "CallExpression[callee.property.name='splice']",
+        "message": "Array 'splice' method is restricted."
+      }
+    ],
+    "curly": 0,
+    "comma-dangle": 0,
+    "react-native/no-inline-styles": 0,
+    "no-shadow": 0,
+    "no-spaced-func": 0
+  }
 }
