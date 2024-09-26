@@ -7,7 +7,8 @@ describe('FeedPost', () => {
   let props: ComponentProps<typeof FeedPost>;
   beforeEach(() => {
     props = {
-      post: { id: '1', body: 'hello', user: { id: 'a', name: 'user', image: 'https://assets.example.com/example4455' } }
+      post: { id: '1', body: 'hello', user: { id: 'a', name: 'user', image: 'https://assets.example.com/example4455' } },
+      maxBodyLength: 100
     };
   });
 
@@ -29,5 +30,10 @@ describe('FeedPost', () => {
     render(<FeedPost {...props} />);
     expect(screen.getByTestId('post-image').getAttribute('src')).toMatch(new RegExp(placeholderImageId));
     expect(screen.getByTestId('post-image').getAttribute('src')).not.toMatch(/example4455/);
+  });
+
+  it('should truncate the body when it is longer than the max length', () => {
+    render(<FeedPost {...props} maxBodyLength={2} />);
+    expect(screen.getByTestId('post-body')).toHaveTextContent('he...');
   });
 });
