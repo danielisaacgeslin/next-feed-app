@@ -8,5 +8,11 @@ export const styles = {
     height: 100%;
     overflow: auto;
     gap: ${GAP.M};
+  `,
+  loading: css`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: ${GAP.L};
   `
 };

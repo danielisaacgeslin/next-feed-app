@@ -1,10 +1,20 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
 import { FeedPostList } from '@/components/FeedPostList';
-import list from './deleteMe.json';
+import { usePosts } from '@/utils/usePosts';
 
 export const Feed = () => {
-  const onBottomReached = useCallback(() => console.log('@todo load stuff'), []);
-  return <FeedPostList list={list} onBottomReached={onBottomReached} />;
+  const { loadPosts, status, list } = usePosts();
+
+  const onBottomReached = useCallback(() => {
+    if (!status.isLoading) loadPosts();
+  }, [loadPosts, status.isLoading]);
+
+  useEffect(() => {
+    loadPosts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return <FeedPostList list={list} isLoading={status.isLoading} onBottomReached={onBottomReached} />;
 };
