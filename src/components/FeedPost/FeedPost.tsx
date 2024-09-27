@@ -4,6 +4,7 @@ import { Post } from '@/app/types';
 import { styles } from './styles';
 import Image from 'next/image';
 import { useMemo } from 'react';
+import { IMG_BASE } from '@/app/constants';
 
 export const placeholderImageId = 'placeholder';
 
@@ -13,7 +14,7 @@ export interface FeedPostProps {
 }
 
 export const FeedPost = ({ post, maxBodyLength }: FeedPostProps) => {
-  const placeholderImage = `https://assets.example.com/${placeholderImageId}`;
+  const placeholderImage = `${IMG_BASE}?text=${placeholderImageId}&font=lobster&font_size=25`;
   const body = useMemo(() => (post.body.length > maxBodyLength ? `${post.body.substring(0, maxBodyLength)}...` : post.body), [maxBodyLength, post.body]);
 
   return (
