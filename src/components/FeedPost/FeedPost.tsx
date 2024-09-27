@@ -1,7 +1,7 @@
 'use client';
 
 import { Post } from '@/app/types';
-import { styles } from './styles';
+import { avatarSize, styles } from './styles';
 import Image from 'next/image';
 import { useMemo } from 'react';
 import { IMG_BASE } from '@/app/constants';
@@ -19,10 +19,12 @@ export const FeedPost = ({ post, maxBodyLength }: FeedPostProps) => {
 
   return (
     <article css={styles.container} data-testid="post">
-      <Image data-testid="post-image" src={post.user.image || placeholderImage} alt={post.user.name} width={30} height={30} />
+      <Image data-testid="post-image" src={post.user.image || placeholderImage} alt={post.user.name} width={avatarSize} height={avatarSize} />
 
       <div css={styles.content}>
-        <p data-testid="post-username">{post.user.name}</p>
+        <p data-testid="post-username" css={styles.username}>
+          {post.user.name}
+        </p>
         <p data-testid="post-body">{body}</p>
       </div>
     </article>

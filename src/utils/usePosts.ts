@@ -28,8 +28,8 @@ export const usePosts = () => {
       );
       setList(p => [
         ...p,
-        ...rawList.map(({ postId, id, email, body }) => ({
-          id: `${id}-${postId}`,
+        ...rawList.map(({ postId, email, body }) => ({
+          id: `${postId}-${Math.random() /** ids are not unique in this api */}`,
           user: { id: email, name: email, image: `${IMG_BASE}?text=${email.substring(0, 2)}&font=lobster&font_size=25` },
           body
         }))

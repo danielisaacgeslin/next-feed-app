@@ -26,8 +26,11 @@ export const FeedPostList = ({ list, isLoading, onBottomReached }: FeedPostListP
 
   return (
     <ul css={styles.container} data-testid="feed-post-list" onScroll={onScroll}>
-      {list.map(post => (
-        <FeedPost key={post.id} post={post} maxBodyLength={100} />
+      {list.map((post, index) => (
+        <div key={post.id}>
+          <div css={[!!index && styles.division]} />
+          <FeedPost post={post} maxBodyLength={100} />
+        </div>
       ))}
       {!!isLoading && <p css={styles.loading}>loading....</p>}
     </ul>

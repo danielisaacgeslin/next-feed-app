@@ -8,6 +8,11 @@ export const styles = {
     height: 100%;
     overflow: auto;
     gap: ${GAP.M};
+    width: 100%;
+    max-width: 900px;
+  `,
+  division: css`
+    border-top: 1px solid #a1a1a1;
   `,
   loading: css`
     display: flex;
