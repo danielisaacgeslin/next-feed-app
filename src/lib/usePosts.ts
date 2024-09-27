@@ -16,14 +16,13 @@ export const usePosts = () => {
 
   const [status, setStatus] = useState<{ isLoading: boolean; hasError: boolean }>({ isLoading: false, hasError: false });
   const [list, setList] = useState<Post[]>([]);
-  const skip = useRef<number>(-1);
 
   const loadPosts = useCallback(async () => {
     $controller.current = new AbortController();
     try {
       setStatus({ isLoading: true, hasError: false });
-      const nextSkip = skip.current + 1;
-      const rawList: RawApiPost[] = await fetch(`${POST_API}?_start=${nextSkip}&_limit=${limit}&_delay=1000`, { signal: $controller.current.signal }).then(r =>
+      const skip = Math.floor(list.length / limit);
+      const rawList: RawApiPost[] = await fetch(`${POST_API}?_start=${skip}&_limit=${limit}&_delay=1000`, { signal: $controller.current.signal }).then(r =>
         r.json()
       );
       setList(p => [
@@ -34,13 +33,12 @@ export const usePosts = () => {
           body
         }))
       ]);
-      skip.current = nextSkip;
     } catch {
       setStatus(p => ({ ...p, hasError: true }));
     } finally {
       setStatus(p => ({ ...p, isLoading: false }));
     }
-  }, []);
+  }, [list.length]);
 
   useEffect(() => () => $controller.current?.abort(), []);
 

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect } from 'react';
 import { FeedPostList } from '@/components/FeedPostList';
-import { usePosts } from '@/utils/usePosts';
+import { usePosts } from '@/lib/usePosts';
 import { styles } from './styles';
 
 export const Feed = () => {
