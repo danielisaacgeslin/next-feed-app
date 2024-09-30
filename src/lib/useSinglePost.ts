@@ -2,14 +2,7 @@ import { useEffect, useState } from 'react';
 import { IMG_BASE, POST_API } from '@/constants';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { postActions } from './redux/postReducer';
-
-interface RawApiPost {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
+import { RawApiPost } from '@/types';
 
 export const useSinglePost = (id: string) => {
   const [status, setStatus] = useState<{ isLoading: boolean; hasError: boolean }>({ isLoading: true, hasError: false });

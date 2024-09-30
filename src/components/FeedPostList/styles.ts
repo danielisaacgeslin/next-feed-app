@@ -13,6 +13,7 @@ export const styles = {
   `,
   division: css`
     border-top: 1px solid #a1a1a1;
+    margin-bottom: ${GAP.M};
   `,
   loading: css`
     display: flex;

@@ -4,7 +4,7 @@ import { Post } from '@/types';
 import { avatarSize, styles } from './styles';
 import Image from 'next/image';
 import { useMemo } from 'react';
-import { PLACEHOLDER_IMAGE } from '@/constants';
+import { NEW_POST_CRITERIA_MS, PLACEHOLDER_IMAGE } from '@/constants';
 import Link from 'next/link';
 
 export interface FeedPostProps {
@@ -14,10 +14,11 @@ export interface FeedPostProps {
 
 export const FeedPost = ({ post, maxBodyLength }: FeedPostProps) => {
   const body = useMemo(() => (post.body.length > maxBodyLength ? `${post.body.substring(0, maxBodyLength)}...` : post.body), [maxBodyLength, post.body]);
+  const isNew = post.addedLiveAt! > Date.now() - NEW_POST_CRITERIA_MS;
 
   return (
     <Link href={`/${post.id}`}>
-      <article css={styles.container} data-testid="post">
+      <article css={[styles.container, isNew && styles.newPost]} data-testid="post">
         <Image data-testid="post-image" src={post.user.image || PLACEHOLDER_IMAGE} alt={post.user.name} width={avatarSize} height={avatarSize} />
 
         <div css={styles.content}>

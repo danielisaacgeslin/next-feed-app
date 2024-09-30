@@ -10,8 +10,10 @@ const postSlice = createSlice({
   name: 'post',
   initialState: { list: [], record: {} } as PostReducerState,
   reducers: {
-    addToList: (state, { payload }: PayloadAction<{ list: Post[] }>) => {
-      state.list = [...state.list, ...payload.list];
+    addToList: (state, { payload }: PayloadAction<{ list: Post[]; prepend?: boolean }>) => {
+      if (payload.prepend) state.list = [...payload.list, ...state.list];
+      else state.list = [...state.list, ...payload.list];
+
       state.record = payload.list.reduce((total, curr) => ({ ...total, [curr.id]: curr }), state.record);
     },
     addOne: (state, { payload }: PayloadAction<{ post: Post }>) => {

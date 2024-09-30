@@ -1,18 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IMG_BASE, POST_API } from '@/constants';
+import { IMG_BASE, POST_API, POST_LIMIT } from '@/constants';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { postActions } from './redux/postReducer';
-
-interface RawApiPost {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
+import { RawApiPost } from '@/types';
 
 export const usePostList = () => {
-  const limit = 20;
   const $controller = useRef<AbortController>();
 
   const [status, setStatus] = useState<{ isLoading: boolean; hasError: boolean }>({ isLoading: false, hasError: false });
@@ -23,8 +15,8 @@ export const usePostList = () => {
     $controller.current = new AbortController();
     try {
       setStatus({ isLoading: true, hasError: false });
-      const skip = Math.floor(list.length / limit);
-      const rawList: RawApiPost[] = await fetch(`${POST_API}?_start=${skip}&_limit=${limit}&_delay=1000`, { signal: $controller.current.signal }).then(r =>
+      const skip = Math.floor(list.length / POST_LIMIT);
+      const rawList: RawApiPost[] = await fetch(`${POST_API}?_start=${skip}&_limit=${POST_LIMIT}&_delay=1000`, { signal: $controller.current.signal }).then(r =>
         r.json()
       );
 
