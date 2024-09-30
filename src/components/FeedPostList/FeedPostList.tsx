@@ -3,7 +3,7 @@
 import { Post } from '@/types';
 import { FeedPost } from '@/components/FeedPost';
 import { styles } from './styles';
-import { UIEvent, useCallback } from 'react';
+import { forwardRef, UIEvent, useCallback } from 'react';
 
 export const placeholderImageId = 'placeholder';
 
@@ -13,7 +13,7 @@ export interface FeedPostListProps {
   onBottomReached: () => void;
 }
 
-export const FeedPostList = ({ list, isLoading, onBottomReached }: FeedPostListProps) => {
+export const FeedPostList = forwardRef<HTMLUListElement, FeedPostListProps>(({ list, isLoading, onBottomReached }, ref) => {
   const onScroll = useCallback(
     (event: UIEvent<HTMLUListElement, globalThis.UIEvent>) => {
       const { scrollHeight, scrollTop: position, clientHeight } = event.currentTarget;
@@ -25,7 +25,7 @@ export const FeedPostList = ({ list, isLoading, onBottomReached }: FeedPostListP
   );
 
   return (
-    <ul css={styles.container} data-testid="feed-post-list" onScroll={onScroll}>
+    <ul ref={ref} css={styles.container} data-testid="feed-post-list" onScroll={onScroll}>
       {list.map((post, index) => (
         <div key={`${post.id}-${index}` /** ids are not unique in this api */}>
           <div css={[!!index && styles.division]} />
@@ -35,4 +35,6 @@ export const FeedPostList = ({ list, isLoading, onBottomReached }: FeedPostListP
       {!!isLoading && <p css={styles.loading}>loading....</p>}
     </ul>
   );
-};
+});
+
+FeedPostList.displayName = 'FeedPostList';
