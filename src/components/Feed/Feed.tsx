@@ -13,7 +13,7 @@ export const Feed = () => {
   }, [loadPosts, status.isLoading]);
 
   useEffect(() => {
-    loadPosts();
+    if (!list.length) loadPosts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
