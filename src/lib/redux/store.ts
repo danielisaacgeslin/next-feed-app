@@ -1,13 +1,10 @@
-import { configureStore, Reducer } from '@reduxjs/toolkit';
-
-const placeholderReducer: Reducer = (state = {}) => {
-  return state;
-};
+import { configureStore } from '@reduxjs/toolkit';
+import { postReducer } from './postReducer';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      placeholder: placeholderReducer
+      post: postReducer
     }
   });
 };
