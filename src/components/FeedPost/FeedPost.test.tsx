@@ -1,7 +1,8 @@
 import { ComponentProps } from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { FeedPost, placeholderImageId } from './FeedPost';
+import { FeedPost } from './FeedPost';
+import { PLACEHOLDER_IMAGE_ID } from '@/constants';
 
 describe('FeedPost', () => {
   let props: ComponentProps<typeof FeedPost>;
@@ -21,14 +22,14 @@ describe('FeedPost', () => {
   it('should NOT use a placeholder image when it is set', () => {
     props.post.user.image = 'https://assets.example.com/example4455';
     render(<FeedPost {...props} />);
-    expect(screen.getByTestId('post-image').getAttribute('src')).not.toMatch(new RegExp(placeholderImageId));
+    expect(screen.getByTestId('post-image').getAttribute('src')).not.toMatch(new RegExp(PLACEHOLDER_IMAGE_ID));
     expect(screen.getByTestId('post-image').getAttribute('src')).toMatch(/example4455/);
   });
 
   it('should use a placeholder image when it is NOT set', () => {
     props.post.user.image = undefined;
     render(<FeedPost {...props} />);
-    expect(screen.getByTestId('post-image').getAttribute('src')).toMatch(new RegExp(placeholderImageId));
+    expect(screen.getByTestId('post-image').getAttribute('src')).toMatch(new RegExp(PLACEHOLDER_IMAGE_ID));
     expect(screen.getByTestId('post-image').getAttribute('src')).not.toMatch(/example4455/);
   });
 

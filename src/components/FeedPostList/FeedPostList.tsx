@@ -1,6 +1,6 @@
 'use client';
 
-import { Post } from '@/app/types';
+import { Post } from '@/types';
 import { FeedPost } from '@/components/FeedPost';
 import { styles } from './styles';
 import { UIEvent, useCallback } from 'react';
@@ -27,7 +27,7 @@ export const FeedPostList = ({ list, isLoading, onBottomReached }: FeedPostListP
   return (
     <ul css={styles.container} data-testid="feed-post-list" onScroll={onScroll}>
       {list.map((post, index) => (
-        <div key={post.id}>
+        <div key={`${post.id}-${index}` /** ids are not unique in this api */}>
           <div css={[!!index && styles.division]} />
           <FeedPost post={post} maxBodyLength={100} />
         </div>

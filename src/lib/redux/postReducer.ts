@@ -1,16 +1,21 @@
-import { Post } from '@/app/types';
+import { Post } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface PostReducerState {
   list: Post[];
+  record: Record<string, Post>;
 }
 
 const postSlice = createSlice({
   name: 'post',
-  initialState: { list: [] } as PostReducerState,
+  initialState: { list: [], record: {} } as PostReducerState,
   reducers: {
-    addPosts: (state, action: PayloadAction<{ list: Post[] }>) => {
-      state.list = [...state.list, ...action.payload.list];
+    addToList: (state, { payload }: PayloadAction<{ list: Post[] }>) => {
+      state.list = [...state.list, ...payload.list];
+      state.record = payload.list.reduce((total, curr) => ({ ...total, [curr.id]: curr }), state.record);
+    },
+    addOne: (state, { payload }: PayloadAction<{ post: Post }>) => {
+      state.record = { ...state.record, [payload.post.id]: payload.post };
     }
   }
 });

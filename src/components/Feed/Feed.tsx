@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect } from 'react';
 import { FeedPostList } from '@/components/FeedPostList';
-import { usePosts } from '@/lib/usePosts';
+import { usePostList } from '@/lib/usePostList';
 import { styles } from './styles';
 
 export const Feed = () => {
-  const { loadPosts, status, list } = usePosts();
+  const { loadPosts, status, list } = usePostList();
 
   const onBottomReached = useCallback(() => {
     if (!status.isLoading) loadPosts();

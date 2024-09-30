@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { IMG_BASE, POST_API } from '@/app/constants';
+import { IMG_BASE, POST_API } from '@/constants';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { postActions } from './redux/postReducer';
 
@@ -11,7 +11,7 @@ interface RawApiPost {
   body: string;
 }
 
-export const usePosts = () => {
+export const usePostList = () => {
   const limit = 20;
   const $controller = useRef<AbortController>();
 
@@ -29,18 +29,18 @@ export const usePosts = () => {
       );
 
       dispatch(
-        postActions.addPosts({
-          list: rawList.map(({ postId, email, body }) => ({
-            id: `${postId}-${Math.random() /** ids are not unique in this api */}`,
+        postActions.addToList({
+          list: rawList.map(({ id, email, body }) => ({
+            id: String(id),
             user: { id: email, name: email, image: `${IMG_BASE}?text=${email.substring(0, 2)}&font=lobster&font_size=25` },
             body
           }))
         })
       );
     } catch {
-      setStatus(p => ({ ...p, hasError: true }));
+      if (!$controller.current?.signal.aborted) setStatus(p => ({ ...p, hasError: true }));
     } finally {
-      setStatus(p => ({ ...p, isLoading: false }));
+      if (!$controller.current?.signal.aborted) setStatus(p => ({ ...p, isLoading: false }));
     }
   }, [dispatch, list.length]);
 
