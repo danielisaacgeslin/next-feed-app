@@ -29,9 +29,9 @@ const handle = app.getRequestHandler();
       io.emit(WS_POST_EV, {
         id,
         postId: Math.round(Number(Math.random().toFixed(2)) * 100),
-        name: `WS user ${Date.now()}`,
-        email: `WS user ${Date.now()}`,
-        body: `WS message ${Date.now()}`
+        name: `User ${id}`,
+        email: `user_${id}@email.com`,
+        body: `WS message ${id} send with a timeout of ${schedule / 1000} seconds.`
       } as RawApiPost);
 
       sendPost();

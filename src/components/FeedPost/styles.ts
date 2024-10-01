@@ -8,10 +8,12 @@ export const styles = {
     width: 100%;
     padding: ${GAP.M};
     display: flex;
+    align-items: flex-start;
     gap: ${GAP.M};
     transition: background-color 0.5s;
   `,
   content: css`
+    flex: 1;
     flex-direction: column;
     display: flex;
     gap: ${GAP.S};

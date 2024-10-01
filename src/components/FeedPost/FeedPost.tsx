@@ -35,6 +35,8 @@ export const FeedPost = memo(({ post, maxBodyLength }: FeedPostProps) => {
           </p>
           <p data-testid="post-body">{body}</p>
         </div>
+
+        {isNew && <small data-testid="post-new">new</small>}
       </article>
     </Link>
   );
