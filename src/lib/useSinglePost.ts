@@ -24,7 +24,8 @@ export const useSinglePost = (id: string) => {
             post: {
               id,
               user: { id: raw.email, name: raw.email, image: `${IMG_BASE}?text=${raw.email.substring(0, 2)}&font=lobster&font_size=25` },
-              body: raw.body
+              body: raw.body,
+              key: String(Math.random())
             }
           })
         );

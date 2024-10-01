@@ -27,7 +27,7 @@ export const FeedPostList = forwardRef<HTMLUListElement, FeedPostListProps>(({ l
   return (
     <ul ref={ref} css={styles.container} data-testid="feed-post-list" onScroll={onScroll}>
       {list.map((post, index) => (
-        <div key={`${post.id}-${index}` /** ids are not unique in this api */}>
+        <div key={post.key}>
           <div css={[!!index && styles.division]} />
           <FeedPost post={post} maxBodyLength={100} />
         </div>

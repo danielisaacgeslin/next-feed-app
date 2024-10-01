@@ -1,13 +1,7 @@
 import { GAP } from '@/constants';
-import { css, keyframes } from 'styled-components';
+import { css } from 'styled-components';
 
 export const avatarSize = 30;
-
-const newAnimation = keyframes`
-  0% { background-color: none; }
-  50% { background-color: darkred; }
-  100% { background-color: none; }
- `;
 
 export const styles = {
   container: css`
@@ -15,6 +9,7 @@ export const styles = {
     padding: ${GAP.M};
     display: flex;
     gap: ${GAP.M};
+    transition: background-color 0.5s;
   `,
   content: css`
     flex-direction: column;
@@ -28,8 +23,6 @@ export const styles = {
   `,
   newPost: css`
     border-radius: 5px;
-    animation-name: ${newAnimation};
-    animation-duration: 2s;
-    animation-iteration-count: 1;
+    background-color: darkred;
   `
 };

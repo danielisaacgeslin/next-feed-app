@@ -20,9 +20,10 @@ export const usePostListener = () => {
           list: [
             {
               id: String(raw.id),
-              user: { id: raw.email, name: raw.email, image: `${IMG_BASE}?text=${raw.email.substring(0, 2)}&font=lobster&font_size=25` },
+              user: { id: raw.email, name: raw.email, image: `${IMG_BASE}?text=${raw.id}&font=lobster&font_size=25` },
               body: raw.body,
-              addedLiveAt: Date.now()
+              addedLiveAt: Date.now(),
+              key: String(Math.random())
             }
           ]
         })

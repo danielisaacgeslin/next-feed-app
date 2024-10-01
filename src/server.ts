@@ -20,17 +20,25 @@ const handle = app.getRequestHandler();
     console.log('Client connected');
   });
 
-  setInterval(() => {
-    const post: RawApiPost = {
-      id: Math.round(Number(Math.random().toFixed(2)) * 100),
-      postId: Math.round(Number(Math.random().toFixed(2)) * 100),
-      name: `WS user ${Date.now()}`,
-      email: `WS user ${Date.now()}`,
-      body: `WS message ${Date.now()}`
-    };
-    console.log(`emmiting post ${post.id}`);
-    io.emit(WS_POST_EV, post);
-  }, 5000);
+  const sendPost = () => {
+    const schedule = Math.min(5, Math.round(Number(Math.random().toFixed(2)) * 10) || 1) * 1000;
+    const id = Math.round(Number(Math.random().toFixed(2)) * 100);
+    console.log(`emmiting "${id}" post in ${schedule / 1000}s`);
+
+    setTimeout(() => {
+      io.emit(WS_POST_EV, {
+        id,
+        postId: Math.round(Number(Math.random().toFixed(2)) * 100),
+        name: `WS user ${Date.now()}`,
+        email: `WS user ${Date.now()}`,
+        body: `WS message ${Date.now()}`
+      } as RawApiPost);
+
+      sendPost();
+    }, schedule);
+  };
+
+  sendPost();
 
   server.all('*', (req, res) => handle(req, res));
 

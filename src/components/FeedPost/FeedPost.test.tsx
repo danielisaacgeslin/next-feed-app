@@ -8,7 +8,7 @@ describe('FeedPost', () => {
   let props: ComponentProps<typeof FeedPost>;
   beforeEach(() => {
     props = {
-      post: { id: '1', body: 'hello', user: { id: 'a', name: 'user', image: 'https://assets.example.com/example4455' } },
+      post: { id: '1', body: 'hello', user: { id: 'a', name: 'user', image: 'https://assets.example.com/example4455', key: '1' } },
       maxBodyLength: 100
     };
   });

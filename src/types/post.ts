@@ -5,6 +5,7 @@ export interface Post {
   user: User;
   body: string;
   addedLiveAt?: number;
+  key: string; // mock api ids are not unique
 }
 
 export interface RawApiPost {

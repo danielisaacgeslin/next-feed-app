@@ -11,4 +11,4 @@ export const WS_URL = `http://localhost:${WS_PORT}`;
 export const WS_POST_EV = `ws-post`;
 
 /** how many ms after it was added to consider a post as new */
-export const NEW_POST_CRITERIA_MS = 4500;
+export const NEW_POST_CRITERIA_MS = 12500;

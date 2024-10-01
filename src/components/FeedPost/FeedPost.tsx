@@ -3,7 +3,7 @@
 import { Post } from '@/types';
 import { avatarSize, styles } from './styles';
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { memo, useEffect, useMemo, useState } from 'react';
 import { NEW_POST_CRITERIA_MS, PLACEHOLDER_IMAGE } from '@/constants';
 import Link from 'next/link';
 
@@ -12,9 +12,17 @@ export interface FeedPostProps {
   maxBodyLength: number;
 }
 
-export const FeedPost = ({ post, maxBodyLength }: FeedPostProps) => {
+export const FeedPost = memo(({ post, maxBodyLength }: FeedPostProps) => {
   const body = useMemo(() => (post.body.length > maxBodyLength ? `${post.body.substring(0, maxBodyLength)}...` : post.body), [maxBodyLength, post.body]);
-  const isNew = post.addedLiveAt! > Date.now() - NEW_POST_CRITERIA_MS;
+  const [isNew, setNew] = useState<boolean>(post.addedLiveAt! > Date.now() - NEW_POST_CRITERIA_MS);
+
+  useEffect(() => {
+    if (!isNew) return;
+    const newFlagLeft = Math.max(0, NEW_POST_CRITERIA_MS - Date.now() + post.addedLiveAt!);
+
+    const timeout = setTimeout(() => setNew(false), newFlagLeft);
+    return () => clearTimeout(timeout);
+  }, [isNew, post.addedLiveAt]);
 
   return (
     <Link href={`/${post.id}`}>
@@ -30,4 +38,6 @@ export const FeedPost = ({ post, maxBodyLength }: FeedPostProps) => {
       </article>
     </Link>
   );
-};
+});
+
+FeedPost.displayName = 'FeedPost';

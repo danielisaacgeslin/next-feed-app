@@ -25,7 +25,8 @@ export const usePostList = () => {
           list: rawList.map(({ id, email, body }) => ({
             id: String(id),
             user: { id: email, name: email, image: `${IMG_BASE}?text=${email.substring(0, 2)}&font=lobster&font_size=25` },
-            body
+            body,
+            key: String(Math.random())
           }))
         })
       );
